@@ -18,3 +18,12 @@ ul{
   gap: 20px;
   list-style: none;
 }
+
+.task-card {
+  background: white;
+  color: black;
+  width: 300px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+}

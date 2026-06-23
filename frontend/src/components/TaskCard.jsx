@@ -1,8 +1,9 @@
-function TaskCard(){
+function TaskCard({title, status, onDelete, id}){
     return(
         <div className="task-card">
-            <h3>Complete React Learning</h3>
-            <p>Status: In Progres</p>
+            <h3>{title}</h3>
+            <p>Status: {status}</p>
+            <button onClick={() => onDelete(id)}>Delete</button>
         </div>
     );
 }

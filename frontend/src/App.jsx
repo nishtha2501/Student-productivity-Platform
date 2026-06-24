@@ -1,26 +1,33 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import './App.css'
 import Navbar from "./components/Navbar";
 import TaskCard from "./components/TaskCard";
 function App() {
         const [newTask, setNewTask] = useState(" ");
-        const [tasks, setTasks] = useState([
-          {
-          id: 1,
-          title: "Learn React",
-          status: "In Progress"
-          },
-          {
-          id: 2,
-          title:"Solve 5 DSA Questions",
-          status:"Pending"
-          },
-          {
-          id: 3,
-          title:"Build Backend",
-          status:"Not Started"
-          }
-        ]);
+        const [tasks, setTasks]= useState(()=> {const savedTasks = localStorage.getItem("tasks");
+        return savedTasks
+          ? JSON.parse(savedTasks)
+          :[
+            {
+              id: 1,
+              title: "Learn React",
+              status: "In Progress"
+            },
+            {
+              id: 2,
+              title:"Solve 5 DSA Questions",
+              status:"Pending"
+            },
+            {
+              id: 3,
+              title:"Build Backend",
+              status:"Not Started"
+            }
+          ];
+        
+      });
+
+        useEffect(()=> { localStorage.setItem("tasks", JSON.stringify(tasks));}, [tasks]);
 
         function addTask(){
           const task={

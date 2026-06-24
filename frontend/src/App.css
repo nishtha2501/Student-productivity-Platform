@@ -27,3 +27,40 @@ ul{
   padding: 15px;
   border-radius: 10px;
 }
+
+.stats{
+  display: flex;
+  justify-content: center;
+  gap: 20 px;
+  margin: 20px 0;
+}
+
+.stat-card{
+  background: white;
+  color: black;
+  padding: 15px;
+  border-radius: 10px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.Pending{
+  background-color: orange;
+  color: white';
+}
+
+.In-Progress{
+  background-color: blue;
+  color: white;
+}
+
+.Completed{
+  background-color: green;
+  color: white;
+}
+
+button{
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+}

@@ -6,30 +6,23 @@ function App() {
         const [newTask, setNewTask] = useState(" ");
         const [searchTerm, setSearchTerm] = useState(" ");
         const [filterStatus, setFilterStatus] = useState("All");
-        const [tasks, setTasks]= useState(()=> {const savedTasks = localStorage.getItem("tasks");
-        return savedTasks
-          ? JSON.parse(savedTasks)
-          :[
-            {
-              id: 1,
-              title: "Learn React",
-              status: "In Progress"
-            },
-            {
-              id: 2,
-              title:"Solve 5 DSA Questions",
-              status:"Pending"
-            },
-            {
-              id: 3,
-              title:"Build Backend",
-              status:"Not Started"
-            }
-          ];
-        
-      });
+        const [tasks, setTasks] = useState([]);
 
-        useEffect(()=> { localStorage.setItem("tasks", JSON.stringify(tasks));}, [tasks]);
+        useEffect(()=>{
+          console.log ("Fetching tasks");
+          fetch("http://localhost:5000/tasks")
+          .then((res)=> {
+            console.log(res);
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            setTasks(data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+        }, []);
 
         function addTask(){
           const task={

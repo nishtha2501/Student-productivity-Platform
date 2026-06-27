@@ -126,49 +126,53 @@ function App() {
         )}
 
           <div className="stat-card">
-            <h3>Total</h3>
+            <h3>📋 Total</h3>
             <p>{totalTasks}</p>
         </div>
 
         <div className="stat-card">
-          <h3>Pending</h3>
+          <h3>🟡 Pending</h3>
           <p>{pendingTasks}</p>
         </div>
 
         <div className="stat-card">
-          <h3>In Progress</h3>
+          <h3>🔵 In Progress</h3>
           <p>{inProgressTasks}</p>
         </div>
 
         <div className="stat-card">
-          <h3>Completed</h3>
+          <h3>🟢 Completed</h3>
           <p>{completedTasks}</p>
         </div>
         </div>
-          <h1>Nishtha's Productivity Platform</h1>
-          <p>I am building my first full-stack project</p>
+          <div className="hero">
+            <h1>Student Productivity Platform</h1>
+            <p>Stay organised. Stay focused. Achieve more.</p>
+          </div>
           <h2>{newTask}</h2>
 
           <input 
             type="text"
-            placeholder="Search tasks..."
+            placeholder="🔍 Search your tasks..."
             value={searchTerm}
             onChange={(event)=> setSearchTerm(event.target.value)}
           />
 
-          <div>
-            <button onClick={()=> setFilterStatus("All")}> All</button>
+          <div className="filter-buttons">
+            <button  onClick={()=> setFilterStatus("All")}> All</button>
             <button onClick={()=> setFilterStatus("Pending")}> Pending</button>
             <button onClick={()=> setFilterStatus("In Progress")}> In Progress</button>
             <button onClick={()=> setFilterStatus("Completed")}> Completed</button>
             <button onClick={clearCompleted}>Clear Completed</button>
           </div>
-          <input
+          <div classname="add-task"><input
             type="text"
+            placeholder="✍️ Add a new task..."
             value={newTask}
             onChange={(event)=> setNewTask(event.target.value)}
           />
           <button onClick={addTask}>Add Task</button>
+          </div>
          {
           filteredTasks.map((task)=>(
             <TaskCard

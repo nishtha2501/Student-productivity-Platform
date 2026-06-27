@@ -1,66 +1,285 @@
-.container {
-  text-align:center;
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-nav {
-  background-color: black;
-  color: white;
-  padding: 20px;
+body{
+    background:linear-gradient(135deg,#EEF2FF,#F8FAFC);
+    min-height:100vh;
+    color:#1E293B;
 }
+
+.container{
+    width:100%;
+    max-width:1200px;
+    margin:auto;
+    padding:40px 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* ---------------- NAVBAR ---------------- */
+
 nav{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    width:100%;
+    padding:18px 60px;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 6px 20px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
-ul{
-  display: flex;
-  gap: 20px;
-  list-style: none;
+nav h2{
+    color:#4F46E5;
+    font-size:28px;
+    font-weight:700;
 }
 
-.task-card {
-  background: white;
-  color: black;
-  width: 300px;
-  margin: 20px auto;
-  padding: 15px;
-  border-radius: 10px;
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
 }
+
+nav ul li{
+    cursor:pointer;
+    font-weight:500;
+    transition:.3s;
+}
+
+nav ul li:hover{
+    color:#4F46E5;
+}
+
+/* ---------------- HERO ---------------- */
+
+.hero{
+    text-align:center;
+    margin:40px 0;
+}
+
+.hero h1{
+    font-size:52px;
+    font-weight:700;
+    color:#0F172A;
+}
+
+.hero p{
+    margin-top:10px;
+    font-size:18px;
+    color:#64748B;
+}
+
+/* ---------------- REMAINING TASKS ---------------- */
+
+.stats-title{
+    font-size:22px;
+    margin-bottom:25px;
+    font-weight:600;
+}
+
+/* ---------------- STATS ---------------- */
 
 .stats{
-  display: flex;
-  justify-content: center;
-  gap: 20 px;
-  margin: 20px 0;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:25px;
+    margin:20px auto 45px;
 }
 
 .stat-card{
-  background: white;
-  color: black;
-  padding: 15px;
-  border-radius: 10px;
-  min-width: 120px;
-  text-align: center;
+    width:180px;
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    transition:.3s;
 }
 
+.stat-card:hover{
+    transform:translateY(-8px);
+}
+
+.stat-card h3{
+    color:#64748B;
+    font-size:18px;
+    margin-bottom:12px;
+}
+
+.stat-card p{
+    font-size:34px;
+    font-weight:bold;
+    color:#4F46E5;
+}
+
+/* ---------------- INPUT ---------------- */
+
+input{
+    width:550px;
+    max-width:95%;
+    padding:16px 18px;
+    border-radius:14px;
+    border:1px solid #D6D9E0;
+    outline:none;
+    font-size:16px;
+    background:white;
+    margin:15px 0;
+    transition:.3s;
+}
+
+input:focus{
+    border-color:#4F46E5;
+    box-shadow:0 0 0 4px rgba(79,70,229,.15);
+}
+
+/* ---------------- FILTER BUTTONS ---------------- */
+
+.filter-buttons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    margin:15px 0 30px;
+}
+
+/* ---------------- ADD TASK ---------------- */
+
+.add-task{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:35px;
+}
+
+/* ---------------- BUTTON ---------------- */
+
+button{
+    padding:12px 22px;
+    border:none;
+    border-radius:12px;
+    background:#4F46E5;
+    color:white;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#4338CA;
+    transform:translateY(-3px);
+}
+
+/* ---------------- TASK CARD ---------------- */
+
+.task-card{
+    width:900px;
+    max-width:95%;
+    background:white;
+    border-radius:18px;
+    padding:22px 28px;
+    margin:18px auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.task-card:hover{
+    transform:translateY(-6px);
+}
+
+.task-card h3{
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.task-card p{
+    color:#64748B;
+}
+
+.task-card button{
+    margin-left:10px;
+}
+
+/* ---------------- STATUS COLORS ---------------- */
+
 .Pending{
-  background-color: orange;
-  color: white';
+    background:#F59E0B;
+}
+
+.Pending:hover{
+    background:#D97706;
 }
 
 .In-Progress{
-  background-color: blue;
-  color: white;
+    background:#3B82F6;
+}
+
+.In-Progress:hover{
+    background:#2563EB;
 }
 
 .Completed{
-  background-color: green;
-  color: white;
+    background:#22C55E;
 }
 
-button{
-  border-radius: 6px;
-  padding: 6px 12px;
-  cursor: pointer;
+.Completed:hover{
+    background:#16A34A;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+@media(max-width:900px){
+
+    nav{
+        padding:20px;
+        flex-direction:column;
+        gap:20px;
+    }
+
+    nav ul{
+        gap:18px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .stats{
+        flex-direction:column;
+    }
+
+    .task-card{
+        flex-direction:column;
+        gap:18px;
+        text-align:center;
+    }
+
+    input{
+        width:100%;
+    }
+
+    .add-task{
+        flex-direction:column;
+    }
 }

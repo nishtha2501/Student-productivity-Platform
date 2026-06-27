@@ -1,71 +1,71 @@
-const cors = require("cors");
+const Task = require("./models/Task");
 const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
+mongoose
+.connect(process.env.MONGO_URI)
+.then(()=> console.log("MongoDB Connected"))
+.catch((err)=> console.log(err));
 app.use(cors());
 app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Backend is running!");
 });
 
-let tasks = [
-    {
-        id: 1,
-        title: "Learn React",
-        status: "In Progress"
-    },
-    {
-        id: 2,
-        title: "Solve 5 DSA Questions",
-        status: "Pending"
-    },
-    {
-        id: 3,
-        title: "Build Backend",
-        status: "Not Started"
-    },
-];
 
-app.get("/tasks", (req, res)=> {
-    res.json(tasks);
+app.get("/tasks", async (req, res) => {
+    try {
+        const tasks = await
+        Task.find();
+        res.json(tasks);
+    } catch (error) {
+        res.status(5000).json({ message: 
+            error.message });
+    }
 });
 
-app.post("/tasks", (req, res)=> {
-    const newTask = req.body;
-
-    tasks.push(newTask);
-
-    res.json({
-        message: "Task added successfully",
-        tasks,
-    });
+app.post("/tasks", async (req, res)=> {
+    try{
+        const task=await
+        Task.create(req.body);
+        res.status(201).json(task);
+    } catch (error) {
+        res.status(400).json({ message:
+            error.message});
+    }
 });
 
-app.delete("/tasks/:id" , (req, res) =>{const id= Number(req.params.id);
-    tasks = tasks.filter(task =>
-        task.id !==id);
-
+app.delete("/tasks/:id", async (req, res) => {
+    try {
+        await
+        Task.findByIdAndDelete(req.params.id);
         res.json({
-            message: "Task deleted successfully",
-            tasks,
+            message: "Task deleted successfully"
         });
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
 });
 
-app.put("/tasks/:id" , (req, res) => {
-    console.log("Put route reached!");
-    console.log(req.params.id);
-    const id = Number(req.params.id);
-
-    tasks = tasks.map((task) => {
-        if(task.id === id){
-            return req.body;
-        }
-        return task;
-    });
-    res.json({
-        message: "Task updated successfully",
-        tasks,
-    });
+app.put("/tasks/:id", async (req, res) => {
+    try {
+        const updatedtask = await
+        Task.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        );
+        req.json(updatedtask);
+    } catch(error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
 });
 
 app.listen(5000, () => {

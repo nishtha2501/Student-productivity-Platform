@@ -65,7 +65,7 @@ function App() {
           
 
         async function updateStatus(id){
-         const task = tasks.find((task) => task.id ===id);
+         const task = tasks.find((task) => task._id ===id);
          let newStatus;
          if(task.status === "Pending"){
           newStatus = "In Progress";
@@ -172,8 +172,8 @@ function App() {
          {
           filteredTasks.map((task)=>(
             <TaskCard
-              key={task.id}
-              id={task.id}
+              key={task._id}
+              id={task._id}
               title={task.title}
               status={task.status}
               onDelete={deleteTask}

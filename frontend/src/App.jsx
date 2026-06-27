@@ -8,51 +8,92 @@ function App() {
         const [filterStatus, setFilterStatus] = useState("All");
         const [tasks, setTasks] = useState([]);
 
+        async function loadTasks(){
+          try{
+            const response = await 
+          fetch("http://localhost:5000/tasks");
+          const data = await response.json();
+          setTasks(data);
+          } catch(error){
+            console.error("Error loading tasks:", error);
+          }
+
+        }
         useEffect(()=>{
-          console.log ("Fetching tasks");
-          fetch("http://localhost:5000/tasks")
-          .then((res)=> {
-            console.log(res);
-            return res.json();
-          })
-          .then((data) => {
-            console.log(data);
-            setTasks(data);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+          loadTasks();
         }, []);
 
-        function addTask(){
-          const task={
+        async function addTask(){
+          if( newTask.trim()==="") return;
+
+          const task = {
             id: Date.now(),
             title: newTask,
-            status: "Pending"
+            status: "Pending",
           };
-          setTasks([...tasks, task]);
-          setNewTask(" ");
+
+          try {
+            await fetch("http://localhost:5000/tasks",
+              {
+                method:"POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(task),
+              });
+            
+                await loadTasks();
+                setNewTask(" ");
+          }   catch (error){
+            console.error("Error adding task:", error);
+          }
         }
 
-        function deleteTask(id){
-          setTasks(tasks.filter((task)=>task.id !==id));
+        async function deleteTask(id){
+          try{
+            await 
+            fetch(`http://localhost:5000/tasks/${
+              id}` , {
+              method: "DELETE",
+        });
+      
+          await loadTasks();
+        } catch(error){
+          console.error("Error deleting task:", error);
         }
+      }
+          
 
-        function updateStatus(id){
-          setTasks(
-            tasks.map((task) => { if(task.id === id) {
-              if (task.status === "Pending") {
-                return { ...task, status: "In Progress"};
-              }
+        async function updateStatus(id){
+         const task = tasks.find((task) => task.id ===id);
+         let newStatus;
+         if(task.status === "Pending"){
+          newStatus = "In Progress";
+         } else if (task.status === "In Progress"){
+          newStatus = "Completed";
+         } else{
+          newStatus = "Pending";
+         }
+         const updatedTask = {
+          ...task,
+          status: newStatus,
+         };
 
-              if(task.status === "In Progress"){
-                return { ...task , status:"Completed"};
-              }
-              return {...task, status:"Pending"};}
-                return task;
-       
-            })
-          );
+         try {
+          await
+           fetch(`http://localhost:5000/tasks/${
+           id}` , {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body:
+              JSON.stringify(updatedTask),
+            });
+            await loadTasks();
+         } catch (error){
+          console.error("Error updating task:", error);
+         }
         }
 
         const totalTasks = tasks.length;

@@ -140,6 +140,7 @@ input{
     background:white;
     margin:15px 0;
     transition:.3s;
+    color: black;
 }
 
 input:focus{
@@ -167,6 +168,8 @@ input:focus{
     flex-wrap:wrap;
     gap:15px;
     margin-bottom:35px;
+    /* color: black; */
+    
 }
 
 /* ---------------- BUTTON ---------------- */
@@ -277,6 +280,7 @@ button:hover{
 
     input{
         width:100%;
+        color: blue;
     }
 
     .add-task{
